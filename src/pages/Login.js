@@ -59,10 +59,10 @@ function Login() {
             <button onClick={login}>
                 Login
             </button>
-
+{/* 
             <Link to="/register">
                 Create Account
-            </Link>
+            </Link> */}
 
         </div>
     );

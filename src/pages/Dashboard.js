@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import api from "../api/api";
@@ -23,23 +23,8 @@ function Dashboard() {
 
     const [selectedDate, setSelectedDate] = useState("");
 
-   useEffect(() => {
-
-    const storedUser = localStorage.getItem("user");
-
-    if (!storedUser) {
-        return;
-    }
-
-    setUser(JSON.parse(storedUser));
-
-    loadStats();
-
-}, []);
-
-const loadStats = async () => {
+    const loadStats = useCallback(async () => {
     try {
-
         const storedUser = localStorage.getItem("user");
 
         if (!storedUser) {
@@ -62,7 +47,21 @@ const loadStats = async () => {
         console.error(error);
         toast.error("Unable to load statistics");
     }
-};
+}, [navigate]);
+
+   useEffect(() => {
+
+    const storedUser = localStorage.getItem("user");
+
+    if (!storedUser) {
+        return;
+    }
+
+    setUser(JSON.parse(storedUser));
+
+    loadStats();
+
+}, [loadStats]);
 
     const handleChange = (e) => {
         setForm({
