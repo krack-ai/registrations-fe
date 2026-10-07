@@ -1,38 +1,101 @@
-.App {
-  text-align: center;
+body{
+    margin:0;
+    font-family:Arial;
+    background:#f4f6f9;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.container{
+    width:400px;
+    margin:50px auto;
+    padding:25px;
+    background:#fff;
+    border-radius:10px;
+    box-shadow:0 0 10px rgba(0,0,0,.2);
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+h2{
+    text-align:center;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+input{
+    width:100%;
+    padding:12px;
+    margin-top:12px;
+    box-sizing:border-box;
 }
 
-.App-link {
-  color: #61dafb;
+button{
+    width:100%;
+    padding:12px;
+    margin-top:15px;
+    background:#1976d2;
+    color:#fff;
+    border:none;
+    cursor:pointer;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+button:hover{
+    background:#1565c0;
+}
+
+a{
+    display:block;
+    margin-top:15px;
+    text-align:center;
+}
+
+.Toastify__close-button {
+    width: auto !important;
+    height: auto !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+}
+
+.form-card {
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+    margin-bottom: 25px;
+}
+
+.form-card h2 {
+    margin-top: 0;
+    margin-bottom: 25px;
+}
+
+.form-group {
+    margin-bottom: 18px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 7px;
+    font-weight: 600;
+}
+
+.form-group input {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 12px;
+    border: 1px solid #d1d5db;
+    border-radius: 7px;
+    font-size: 15px;
+}
+
+.submit-btn {
+    width: 100%;
+    padding: 13px;
+    border: none;
+    border-radius: 8px;
+    background: #111827;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.submit-btn:hover {
+    background: #000;
 }
