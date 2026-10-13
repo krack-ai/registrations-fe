@@ -2,15 +2,14 @@ import { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import * as pdfjsLib from "pdfjs-dist";
+import pdfWorker from "pdfjs-dist/build/pdf.worker.min.mjs?url";
 import mammoth from "mammoth";
 import api from "../api/api";
 import "./Dashboard.css";
 
-// Configure the PDF.js worker (Vite projects)
-pdfjsLib.GlobalWorkerOptions.workerSrc = new URL(
-  "pdfjs-dist/build/pdf.worker.min.mjs",
-  import.meta.url
-).toString();
+
+pdfjsLib.GlobalWorkerOptions.workerSrc =
+    `${process.env.PUBLIC_URL}/pdfjs/pdf.worker.min.mjs`;
 
 function Dashboard() {
     const navigate = useNavigate();
