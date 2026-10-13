@@ -11,6 +11,7 @@ import "./App.css";
 
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import SubmittedUsers from "./pages/Users";
 
 function App() {
 
@@ -40,6 +41,10 @@ function App() {
                         <Route
                             path="/dashboard"
                             element={<Dashboard />}
+                        />
+                         <Route
+                            path="/admin-users"
+                            element={<SubmittedUsers />}
                         />
 
                     </Route>
