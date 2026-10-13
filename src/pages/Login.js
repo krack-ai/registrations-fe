@@ -2,6 +2,7 @@ import { useState } from "react";
 import api from "../api/api";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import './Login.css'
 
 function Login() {
     const navigate = useNavigate();
@@ -11,6 +12,9 @@ function Login() {
         password: ""
     });
 
+    const [showPassword, setShowPassword] = useState(false);
+    const [loading, setLoading] = useState(false);
+
     const handleChange = (e) => {
         setForm({
             ...form,
@@ -18,8 +22,17 @@ function Login() {
         });
     };
 
-    const login = async () => {
+    const login = async (e) => {
+        e.preventDefault();
+
+        if (!form.email || !form.password) {
+            toast.error("Please enter email and password");
+            return;
+        }
+
         try {
+            setLoading(true);
+
             const res = await api.post("/auth/login", form);
 
             localStorage.setItem("token", res.data.token);
@@ -28,42 +41,114 @@ function Login() {
             toast.success("Login successful");
 
             navigate("/dashboard");
-
         } catch (error) {
             toast.error(
                 error.response?.data?.message || "Invalid Credentials"
             );
+        } finally {
+            setLoading(false);
         }
     };
 
     return (
-        <div className="container">
+        <div className="login-page">
+            <div className="login-card">
 
-            <h2>Login</h2>
+                <div className="login-header">
+                    <div className="login-icon">
+                        🔐
+                    </div>
 
-            <input
-                name="email"
-                placeholder="Email"
-                value={form.email}
-                onChange={handleChange}
-            />
+                    <h1>Welcome Back</h1>
 
-            <input
-                name="password"
-                type="password"
-                placeholder="Password"
-                value={form.password}
-                onChange={handleChange}
-            />
+                    <p>
+                        Sign in to continue to your account
+                    </p>
+                </div>
 
-            <button onClick={login}>
-                Login
-            </button>
-{/* 
-            <Link to="/register">
-                Create Account
-            </Link> */}
+                <form onSubmit={login} className="login-form">
 
+                    <div className="form-group">
+                        <label htmlFor="email">
+                            Email Address
+                        </label>
+
+                        <div className="input-wrapper">
+                            {/* <span className="input-icon">✉</span> */}
+
+                            <input
+                                id="email"
+                                name="email"
+                                type="email"
+                                placeholder="Enter your email"
+                                value={form.email}
+                                onChange={handleChange}
+                                autoComplete="email"
+                                required
+                            />
+                        </div>
+                    </div>
+
+                    <div className="form-group">
+                        <label htmlFor="password">
+                            Password
+                        </label>
+
+                        <div className="input-wrapper">
+                            {/* <span className="input-icon">🔒</span> */}
+
+                            <input
+                                id="password"
+                                name="password"
+                                type={showPassword ? "text" : "password"}
+                                placeholder="Enter your password"
+                                value={form.password}
+                                onChange={handleChange}
+                                autoComplete="current-password"
+                                required
+                            />
+
+                            <button
+                                type="button"
+                                className="password-toggle"
+                                onClick={() =>
+                                    setShowPassword(!showPassword)
+                                }
+                                aria-label={
+                                    showPassword
+                                        ? "Hide password"
+                                        : "Show password"
+                                }
+                            >
+                                {showPassword ? "🙈" : "👁"}
+                            </button>
+                        </div>
+                    </div>
+
+                    <button
+                        type="submit"
+                        className="login-button"
+                        disabled={loading}
+                    >
+                        {loading ? (
+                            <>
+                                <span className="spinner"></span>
+                                Signing in...
+                            </>
+                        ) : (
+                            "Sign In"
+                        )}
+                    </button>
+
+                </form>
+
+                <div className="login-footer">
+                    <p>
+                        Secure login • Your information is protected
+                    </p>
+                </div>
+
+            </div>
         </div>
     );
 }
